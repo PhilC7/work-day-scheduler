@@ -13,10 +13,9 @@ currentDay.text(todaysDate); // Set text as current date
 
 // function to create a time slot for each hour between 9am and 5pm.
 function createTimeSlot() {
-
     // for loop to create time slot block for each hour.
     for (let hour = 9; hour <= 17; hour++) {
-        var time = dayjs(`${hour}`).format("h A");
+        var time = dayjs(`2024 ${hour}`).format("h A");
         var timeBLock = $(`
         <div class="row time-block">
             <div class="col-2 hour">
