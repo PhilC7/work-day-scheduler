@@ -1,15 +1,13 @@
 /******************************
- *   Global Variables.  
+*   Global Variables.  
 ******************************/
 var currentDay = $("#currentDay");
 var container = $(".container");
-var currentHour = dayjs().hour(); // variable to display hour - i.e. 9 AM
+var currentHour = dayjs().hour(); // variable to display hour
+var todaysDate = dayjs().format("dddd, DD  MMMM YYYY"); // Set variable with current date
 
-
-// Set variable with current date
-var todaysDate = dayjs().format("dddd, DD  MMMM YYYY");
-currentDay.text(todaysDate); // Set text as current date
-
+// Set text as current date
+currentDay.text(todaysDate);
 
 //set array for hours of a working day
 var hour = [9, 10, 11, 12, 13, 14, 15, 16, 17];
@@ -32,11 +30,11 @@ hour.forEach(element => {
 
     // create a time slot for each hour.
     var timeSlot = $(`
-        <div data-timeslot class="row time-block">
+        <div class="row time-block">
             <div class="col-2 hour">${time}</div>
             <textarea name="text" class="col-9 ${checkedTime}"></textarea>
             <button type="submit" class="col-1 saveBtn"><i class="fa-solid fa-floppy-disk"></i></button>
-        </div>`)
+        </div>`);
     container.append(timeSlot); // append time slot to container div.
 });
 
@@ -50,9 +48,9 @@ function saveToLocalStorage() {
     var textInput = $('textarea'); // set variable for textarea
 
     // for each textarea, create a key: value pairing
-    textInput.each(function (index) {
-        var key = "hour-" + hour[index];
-        var value = $(this).val();
+    textInput.each(function (i) {
+        var key = "hour-" + hour[i]; // e.g. displays hour-9 or hour-13.
+        var value = $(this).val(); // value of 'this' textInput
         localStorage.setItem(key, value); //set local storage
     });
 }
@@ -62,8 +60,8 @@ function loadFromLocalStorage() {
     var textInput = $('textarea');// set variable for textarea
 
     // for each textarea to get any existing data
-    textInput.each(function (index) {
-        var key = "hour-" + hour[index];
+    textInput.each(function (i) {
+        var key = "hour-" + hour[i]; // e.g. displays hour-9 or hour-13.
         var value = localStorage.getItem(key); // get data and set the value.
         $(this).val(value);
     });
